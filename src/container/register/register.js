@@ -27,9 +27,7 @@ class Register extends Component{
                         </RadioItem>
                     </List>
                     <WhiteSpace />
-                    <Button type="primary">Login</Button>
-                    <WhiteSpace />
-                    <Button onClick={this.register} type="primary">Register</Button>
+                    <Button type="primary">Register</Button>
                 </WingBlank>
             </div>
         )
