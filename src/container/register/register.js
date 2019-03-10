@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Logo from '../../components/logo/logo'
-import {List, InputItem, WingBlank, WhiteSpace, Button, Radio} from 'antd-mobile'
+import { List, InputItem, WingBlank, WhiteSpace, Button, Radio } from 'antd-mobile'
 
-class Register extends Component{
-    constructor(props){
+class Register extends Component {
+    constructor (props) {
         super(props)
         this.state = {
             type: 'genius'
         }
     }
-    render(){
+
+    render () {
         const RadioItem = Radio.RadioItem
-        return(
+        return (
             <div>
                 <Logo></Logo>
                 <WingBlank>
@@ -19,14 +20,14 @@ class Register extends Component{
                         <InputItem>Username</InputItem>
                         <InputItem>Password</InputItem>
                         <InputItem>Confirm</InputItem>
-                        <RadioItem checked={this.state.type==='genius'}>
+                        <RadioItem checked={this.state.type === 'genius'}>
                             Genius
                         </RadioItem>
-                        <RadioItem checked={this.state.type==='boss'}>
+                        <RadioItem checked={this.state.type === 'boss'}>
                             Boss
                         </RadioItem>
                     </List>
-                    <WhiteSpace />
+                    <WhiteSpace/>
                     <Button type="primary">Register</Button>
                 </WingBlank>
             </div>
