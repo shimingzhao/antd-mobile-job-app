@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
+import {Button} from 'antd-mobile'
 import './App.css';
-
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="frostedglass">
-          <div className="frostedglass-inner">前端开发</div>
-        </div> 
-        <div className="frostedglass">
-          <div className="frostedglass-inner">HTML</div>
-        </div>
+      <div>
+        <Button type='primary'>add new soldier</Button>
       </div>
     );
   }
