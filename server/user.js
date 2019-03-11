@@ -1,4 +1,5 @@
 const express = require('express')
+const utils = require('utility')
 const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
@@ -10,13 +11,13 @@ Router.get('/list', function(req, res){
 })
 
 Router.post('/register', function(req, res){
-    console.log(req.body.data)
-    const {user, pwd, type} = req.body.data
+    console.log(req.body)
+    const {user, pwd, type} = req.body
     User.findOne({user}, function (err, doc) {
         if(doc){
             return res.json({code: 1, msg: 'Username exist'})
         }
-        User.create({user, pwd, type}, function(e, d){
+        User.create({user, type, pwd: md5Pwd(pwd)}, function(e, d){
             if(e) {
                 return res.json({code: 1, msg: 'Back-end wrong'})
             }
@@ -28,5 +29,10 @@ Router.post('/register', function(req, res){
 Router.get('/info', function (req, res) {
     return res.json({code: 1})
 })
+
+function md5Pwd(pwd){
+    const salt = 'shi_Ming_zhao_410&(!#@'
+    return utils.md5(utils.md5(pwd+salt))
+}
 
 module.exports = Router
