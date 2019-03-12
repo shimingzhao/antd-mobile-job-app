@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-// connect to mongo, use imooc
+// connect to mongo, use imooc-chat
 const DB_URL = 'mongodb://127.0.0.1:27017/imooc-chat'
 mongoose.connect(DB_URL)
 mongoose.connection.on('connected', function(){
