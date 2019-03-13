@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { NavBar, InputItem, TextareaItem, Button } from 'antd-mobile'
 import AvatarSelector from '../../components/avatar-selector/avatar-selector'
+import { update } from '../../redux/user.redux'
 
+@connect(
+    state => state.user,
+    {update}
+)
 class BossInfo extends Component {
     constructor (props) {
         super(props)
@@ -15,10 +22,13 @@ class BossInfo extends Component {
     }
 
     render () {
+        const path = this.props.location.pathname
+        const redirect = this.props.redirectTo
         return (
             <div>
+                {redirect && redirect!==path ? <Redirect to={this.props.redirectTo}/> : null}
                 <NavBar mode="dark">BOSS INFORMATION</NavBar>
-                <AvatarSelector selectAvatar={imgname=>this.setState({
+                <AvatarSelector selectAvatar={imgname => this.setState({
                     avatar: imgname
                 })}></AvatarSelector>
                 <InputItem onChange={(v) => this.onChange('title', v)}>
@@ -37,7 +47,7 @@ class BossInfo extends Component {
                     title="Description"
                     labelNumber={6}
                 />
-                <Button type="primary">Save</Button>
+                <Button onClick={() => this.props.update(this.state)} type="primary">Save</Button>
             </div>
         )
     }
