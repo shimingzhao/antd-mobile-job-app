@@ -55,14 +55,6 @@ Router.post('/register', function (req, res) {
             res.cookie('userid', _id)
             return res.json({code: 0, data: {user, type, _id}})
         })
-
-        // User.create cannot get _id before the new user is generated, should use .save
-        // User.create({user, type, pwd: md5Pwd(pwd)}, function (e, d) {
-        //     if (e) {
-        //         return res.json({code: 1, msg: 'Back-end wrong'})
-        //     }
-        //     return res.json({code: 0})
-        // })
     })
 })
 

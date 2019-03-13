@@ -31,7 +31,8 @@ export function user (state = initState, action) {
     }
 }
 
-function authSuccess (data) {
+function authSuccess (obj) {
+    const {pwd, ...data} = obj
     return {type: AUTH_SUCCESS, payload: data}
 }
 
@@ -53,7 +54,6 @@ export function update (data) {
 }
 
 export function loadData (userinfo) {
-    console.log(userinfo)
     return {type: LOAD_DATA, payload: userinfo}
 }
 
