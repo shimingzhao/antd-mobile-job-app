@@ -13,7 +13,11 @@ class BossInfo extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            title: ''
+            avatar: '',
+            title: '',
+            company: '',
+            money: '',
+            desc:''
         }
     }
 
@@ -23,7 +27,6 @@ class BossInfo extends Component {
 
     render () {
         const path = this.props.location.pathname
-        
         const redirect = this.props.redirectTo
         return (
             <div>
