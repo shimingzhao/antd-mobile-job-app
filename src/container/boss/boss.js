@@ -27,15 +27,15 @@ export default class Boss extends Component {
                 <WhiteSpace/>
                 {this.state.data.map(v => (
                     v.avatar ?
-                        <div>
-                            <Card key={v._id}>
+                        <div key={v._id}>
+                            <Card>
                                 <Header
                                     title={v.user}
                                     thumb={require(`../../components/img/${v.avatar}.png`)}
                                     extra={<span>{v.title}</span>}
                                 />
-                                <Body>{v.desc.split('\n').map(desc => (
-                                    <div>{desc}</div>
+                                <Body>{v.desc.split('\n').map((desc, index) => (
+                                    <div key={index}>{desc}</div>
                                 ))}</Body>
                                 <WhiteSpace/>
                             </Card>
