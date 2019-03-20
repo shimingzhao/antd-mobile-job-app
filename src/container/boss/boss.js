@@ -1,0 +1,51 @@
+import React, { Component } from 'react'
+import axios from 'axios'
+import { Card, WhiteSpace, WingBlank } from 'antd-mobile'
+
+export default class Boss extends Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            data: []
+        }
+    }
+
+    componentDidMount () {
+        axios.get('/user/list?type=genius')
+            .then(res => {
+                if (res.data.code === 0) {
+                    this.setState({data: res.data.data})
+                }
+            })
+    }
+
+    render () {
+        const Header = Card.Header
+        const Body = Card.Body
+        return (
+            <WingBlank>
+                <WhiteSpace/>
+                {this.state.data.map(v => (
+                    v.avatar ?
+                        <div>
+                            <Card key={v._id}>
+                                <Header
+                                    title={v.user}
+                                    thumb={require(`../../components/img/${v.avatar}.png`)}
+                                    extra={<span>{v.title}</span>}
+                                />
+                                <Body>{v.desc.split('\n').map(desc => (
+                                    <div>{desc}</div>
+                                ))}</Body>
+                                <WhiteSpace/>
+                            </Card>
+                            <WhiteSpace/>
+                        </div>
+                        :
+                        null
+                ))}
+            </WingBlank>
+        )
+    }
+}
+
