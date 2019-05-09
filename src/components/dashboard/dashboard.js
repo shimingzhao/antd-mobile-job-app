@@ -5,14 +5,11 @@ import {NavBar} from 'antd-mobile'
 import NavLinkBar from '../navlink/navlink'
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
+import User from '../../components/user/user'
 
 
 function Msg(){
   return <h3>Message page</h3>
-}
-
-function User(){
-  return <h3>My page</h3>
 }
 
 @connect(
