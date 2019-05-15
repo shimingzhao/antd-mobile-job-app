@@ -1,29 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import { NavBar } from 'antd-mobile';
-import NavLinkBar from '../navlink/navlink';
-import Boss from '../boss/boss';
-import Genius from '../genius/genius';
-import User from '../../components/user/user';
-import { getMsgList, recvMsg } from '../../redux/chat.redux';
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import {Route, Switch} from 'react-router-dom'
+import {NavBar} from 'antd-mobile'
+import NavLinkBar from '../navlink/navlink'
+import Boss from '../boss/boss'
+import Genius from '../genius/genius'
+import User from '../../components/user/user'
 
-function Msg() {
-  return <h3>Message page</h3>;
+
+function Msg(){
+  return <h3>Message page</h3>
 }
 
 @connect(
-  state => state,
-  { getMsgList, recvMsg }
+  state => state
 )
 class Dashboard extends Component {
-  componentDidMount() {
-    this.props.getMsgList();
-    this.props.recvMsg();
-  }
   render() {
-    const user = this.props.user;
-    const { pathname } = this.props.location;
+    const user = this.props.user
+    const {pathname} = this.props.location
     const navList = [
       {
         path: '/boss',
@@ -55,24 +50,22 @@ class Dashboard extends Component {
         title: 'My Profile',
         component: User
       }
-    ];
+    ]
 
     return (
       <div>
-        <NavBar className="fixed-header" mode="dark">
-          {navList.find(v => v.path === pathname).title}
-        </NavBar>
+        <NavBar className="fixed-header" mode="dark">{ navList.find(v=>v.path===pathname).title }</NavBar>
         <div>
           <Switch>
-            {navList.map(v => (
+            {navList.map(v=>(
               <Route key={v.path} path={v.path} component={v.component} />
             ))}
           </Switch>
         </div>
-        <NavLinkBar data={navList} />
+        <NavLinkBar data={navList}></NavLinkBar>
       </div>
-    );
+    )
   }
 }
 
-export default Dashboard;
+export default Dashboard
