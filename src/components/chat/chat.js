@@ -1,32 +1,50 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
 import { List, InputItem } from 'antd-mobile';
+import { connect } from 'react-redux';
+import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux';
+import io from 'socket.io-client';
 const socket = io('ws://localhost:9093');
-socket.on('recvmsg', function(data) {
-  console.log(data);
-});
 
+@connect(
+  state => state,
+  { getMsgList, sendMsg, recvMsg }
+)
 class Chat extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: '' };
+    this.state = { text: '', msg: [] };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.getMsgList();
+    this.props.recvMsg();
+    // socket.on('recvmsg', data => {
+    //   this.setState({ msg: [...this.state.msg, data.text] });
+    // });
+  }
   handleSubmit() {
-    socket.emit('sendmsg', { text: this.state.text });
+    // socket.emit('sendmsg', { text: this.state.text });
+    const from = this.props.user._id;
+    const to = this.props.match.params.user;
+    const msg = this.state.text;
+    this.props.sendMsg({ from, to, msg });
     this.setState({ text: '' });
   }
   render() {
     return (
-      <div className="stick-footer">
-        <List>
-          <InputItem
-            placeholder="Enter the message"
-            value={this.state.text}
-            onChange={v => this.setState({ text: v })}
-            extra={<span onClick={() => this.handleSubmit()}>Send</span>}
-          />
-        </List>
+      <div>
+        {this.props.chat.chatmsg.map((v, index) => {
+          return <p key={v._id}>{v.content}</p>;
+        })}
+        <div className="stick-footer">
+          <List>
+            <InputItem
+              placeholder="Enter the message"
+              value={this.state.text}
+              onChange={v => this.setState({ text: v })}
+              extra={<span onClick={() => this.handleSubmit()}>Send</span>}
+            />
+          </List>
+        </div>
       </div>
     );
   }
