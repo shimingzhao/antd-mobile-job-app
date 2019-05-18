@@ -6,6 +6,8 @@ const model = require('./model');
 const User = model.getModel('user');
 const Chat = model.getModel('chat');
 
+// Chat.remove({}, function(e, d) {});
+
 // create app
 const app = express();
 // work with express
