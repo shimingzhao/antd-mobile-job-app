@@ -16,19 +16,19 @@ class Chat extends Component {
   }
   componentDidMount() {
     this.props.getMsgList();
-    // socket.on('recvmsg', data => {
-    //   this.setState({ msg: [...this.state.msg, data.text] });
-    // });
+    socket.on('recvmsg', data => {
+      this.setState({ msg: [...this.state.msg, data.text] });
+    });
   }
   handleSubmit() {
-    // socket.emit('sendmsg', { text: this.state.text });
+    socket.emit('sendmsg', { text: this.state.text });
     this.setState({ text: '' });
   }
   render() {
     return (
       <div>
-        {this.state.msg.map(v => {
-          return <p key={v}>{v}</p>;
+        {this.state.msg.map((v, index) => {
+          return <p key={`${v}_${index}`}>{v}</p>;
         })}
         <div className="stick-footer">
           <List>
