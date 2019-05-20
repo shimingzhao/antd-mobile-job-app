@@ -27,10 +27,11 @@ export function chat(state = initState, action) {
         ).length
       };
     case MSG_RECV:
+      const n = action.payload.to === action.userid ? 1 : 0;
       return {
         ...state,
         chatmsg: [...state.chatmsg, action.payload],
-        unread: state.unread + 1
+        unread: state.unread + n
       };
     case MSG_READ:
       const { user, chatwith } = action;
@@ -52,14 +53,16 @@ function msgList(msgs, users, userid) {
   return { type: MSG_LIST, payload: { msgs, users, userid } };
 }
 
-function msgRecv(msg) {
-  return { type: MSG_RECV, payload: msg };
+function msgRecv(msg, userid) {
+  return { userid, type: MSG_RECV, payload: msg };
 }
 
 export function recvMsg() {
-  return dispatch => {
+  return (dispatch, getState) => {
     socket.on('recvmsg', function(data) {
-      dispatch(msgRecv(data));
+      console.log('recvmsg', data);
+      const userid = getState().user._id;
+      dispatch(msgRecv(data, userid));
     });
   };
 }
