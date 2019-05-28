@@ -28,6 +28,7 @@ export function chat(state = initState, action) {
       };
     case MSG_RECV:
       const n = action.payload.to === action.userid ? 1 : 0;
+      
       return {
         ...state,
         chatmsg: [...state.chatmsg, action.payload],
