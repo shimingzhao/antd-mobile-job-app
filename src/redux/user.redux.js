@@ -53,8 +53,8 @@ function authSuccess(obj) {
 
 function errorMsg(msg) {
   return {
-    msg,
-    type: ERROR_MSG
+    type: ERROR_MSG,
+    msg
   };
 }
 
